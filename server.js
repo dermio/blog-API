@@ -5,7 +5,7 @@ const app = express();
 
 // use Express router, modularize route to /blog-posts
 // import blog-posts
-const blogPostsRouter = require('./blog-posts');
+const blogPostsRouter = require('./blogPostsRouter');
 
 // log http layer, copied from example shopping-list-v5
 app.use(morgan('common'));
