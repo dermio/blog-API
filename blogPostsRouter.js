@@ -24,15 +24,15 @@ router.post('/', jsonParser, (req, res) => {
   let requiredFields = ['title', 'content', 'author'];
   for (let i = 0; i < requiredFields.length; i++) {
     let field = requiredFields[i];
-    if (!(field in requiredFields)) {
+    if (!(field in req.body)) {
       let message = `Missing \`${field}\` in request body`;
       console.error(message);
       return res.status(400).send(message);
     }
   }
 
-  let item = BlogPosts.create(req.body.title, req.body.content,
-  req.body.author);
+  let item = BlogPosts.create(req.body.title, req.body.content, 
+    req.body.author);
   res.status(201).json(item);
 });
 
