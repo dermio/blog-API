@@ -7,22 +7,22 @@ const app = express();
 // import blog-posts
 const blogPostsRouter = require('./blog-posts');
 
-
 // log http layer, copied from example shopping-list-v5
 app.use(morgan('common'));
 
-app.use(express.static('public'));
 
 /*
+I don't have any static files
+app.use(express.static('public'));
+
+I don't have an index.html file
 app.get('/', (req, res) => {
 
 });
 */
-//////////////
 
 
-// use app.use to route requests to /blog-posts
-
+// Use app.use to route requests to /blog-posts.
 // when requests come into `/blog-posts`,
 // we'll route them to the express
 // router instances we've imported. Remember,
