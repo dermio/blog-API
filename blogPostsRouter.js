@@ -16,3 +16,5 @@ BlogPosts.create('cake', 'I want cake', 'doggy');
 router.get('/', (req, res) => {
   res.json(BlogPosts.get());
 });
+
+module.exports = router;
