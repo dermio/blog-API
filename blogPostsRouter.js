@@ -8,7 +8,7 @@ const jsonParser = bodyParser.json();
 const {BlogPosts} = require('./models');
 
 // create some blog posts
-BlogPosts.create('Hello', 'Greetings from Earth', 'Davy', 'right now');
+BlogPosts.create('Hello', 'Greetings from Earth', 'Davy');
 BlogPosts.create('cake', 'I want cake', 'doggy');
 
 
@@ -41,6 +41,42 @@ router.delete('/:id', (req, res) => {
   BlogPosts.delete(req.params.id);
   // Think example and solution have req.params.ID?
   console.log(`Deleted blog post ${req.params.ID}`);
+  res.status(204).end();
+});
+
+// PUT blog post by id
+router.put('/:id', jsonParser, (req, res) => {
+  let requiredFields = ['id', 'title', 'author', 'content', 'publishDate'];
+  for (let i = 0; i < requiredFields.length; i++) {
+    let field = requiredFields[i];
+    if (!(field in req.body)) {
+      let message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+
+  if (req.params.id !== req.body.id) {
+    let message = `Request path id (${req.params.id}) and request body id`
+    `(${req.body.id}) must match`;
+
+    console.error(message);
+    return res.status(400).send(message);
+  }
+
+  console.log(`Updating blog posts \`${req.params.id}\``);
+
+  // Why assign BlogPosts.update() to updatedItem?
+  // Differs from the previous example for PUT request
+
+  // publishDate not working? can't get it to work in Postman
+  let updatedItem = BlogPosts.update({
+    id: req.params.id,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    publishDate: req.body.publishDate
+  });
   res.status(204).end();
 });
 
