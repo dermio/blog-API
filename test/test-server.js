@@ -59,7 +59,33 @@ describe("Blog Posts", function () {
         res.body.title.should.equal(newPost.title);
         res.body.author.should.equal(newPost.author);
         res.body.content.should.equal(newPost.content);
+      });
+  });
+
+  it("should update a post on PUT", function () {
+    let updateData = {
+      author: "Dr. Seuss",
+      content: "I do not like green eggs and ham. I do not like them, Sam-I-am."
+    };
+
+    return chai.request(app)
+      // First GET the posts, and get the Id of one of the posts.
+      .get("/blog-posts")
+      .then(function (res) {
+        // console.log(res);
+        // Can use Object.assign to replace key/value pairs
+        // res.body[0].id contains the Id of the first blog-post
+        let updatePost = Object.assign(res.body[0], updateData);
+        // console.log(updatePost);
+        // Second make PUT request with updated values
+        return chai.request(app)
+          .put(`/blog-posts/${updatePost.id}`)
+          .send(updatePost);
       })
+      .then(function (res) {
+        // console.log(res);
+        res.should.have.status(204);
+      });
 
   });
 
