@@ -62,7 +62,7 @@ describe("Blog Posts", function () {
       });
   });
 
-  it("should update a post on PUT", function () {
+  it("should update a blog post on PUT", function () {
     let updateData = {
       author: "Dr. Seuss",
       content: "I do not like green eggs and ham. I do not like them, Sam-I-am."
@@ -86,7 +86,23 @@ describe("Blog Posts", function () {
         // console.log(res);
         res.should.have.status(204);
       });
+  });
 
+  it("should delete a blog post on DELETE", function () {
+    return chai.request(app)
+      // First GET the posts, and get the Id of one of the posts.
+      .get("/blog-posts")
+      .then(function (res) {
+        // console.log(res);
+        let postId = res.body[0].id;
+
+        // Second DELETE the post by Id.
+        return chai.request(app)
+          .delete(`/blog-posts/${postId}`);
+      }).then(function (res) {
+        // console.log(res);
+        res.should.have.status(204);
+      });
   });
 
 });
