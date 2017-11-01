@@ -56,3 +56,20 @@ function runServer() {
     });
   });
 }
+
+// like `runServer`, this function also needs to return a promise.
+// `server.close` does not return a promise on its own, so we manually
+// create one.
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    console.log('Closing server');
+    server.close(err => {
+      if (err) {
+        reject(err);
+        // so we don't also call `resolve()`
+        return;
+      }
+      resolve();
+    });
+  });
+}
