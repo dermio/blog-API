@@ -105,4 +105,19 @@ describe("Blog Posts", function () {
       });
   });
 
+
+  // Test edge case for POST
+  it("should error if fields are missing in POST", function () {
+    // The data to make a blog post is incomplete
+    let incompleteData = {};
+
+    return chai.request(app)
+      .post("/blog-posts")
+      .send(incompleteData)
+      .catch(function (res) {
+        // console.log(res);
+        res.should.have.status(400);
+      });
+  });
+
 });
