@@ -36,7 +36,31 @@ describe("Blog Posts", function () {
           item.should.have.all.keys(
             "id", "title", "content", "author", "publishDate");
         });
+      });
+  });
+
+  it("should create blog post on POST", function () {
+    let newPost = {
+      title: "The Old Man and the Sea",
+      author: "Ernest Hemingway",
+      content: "Now is no time to think of what you do not have. Think of what you can do with that there is."
+    };
+
+    return chai.request(app)
+      .post("/blog-posts")
+      .send(newPost)
+      .then(function (res) {
+        // console.log(res);
+        res.should.have.status(201);
+        res.should.be.json;
+        res.body.should.be.a("object");
+        res.body.should.have.all.keys(
+          "id", "title", "content", "author", "publishDate");
+        res.body.title.should.equal(newPost.title);
+        res.body.author.should.equal(newPost.author);
+        res.body.content.should.equal(newPost.content);
       })
+
   });
 
 });
