@@ -21,4 +21,12 @@ describe("Blog Posts", function () {
     return closeServer();
   });
 
+  // Test the routes.
+  it("should list blog posts on GET", function () {
+    return chai.request(app)
+      .get("/blog-posts")
+      .then(function (res) {
+        console.log(res);
+      })
+  });
 });
