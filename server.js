@@ -11,7 +11,7 @@ const blogPostsRouter = require('./blogPostsRouter');
 app.use(morgan('common'));
 
 // serve static files, like HTML, CSS, JS, and images
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 /*
 I don't have an index.html file
