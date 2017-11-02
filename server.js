@@ -10,11 +10,10 @@ const blogPostsRouter = require('./blogPostsRouter');
 // log http layer, copied from example shopping-list-v5
 app.use(morgan('common'));
 
-
-/*
-I don't have any static files
+// serve static files, like HTML, CSS, JS, and images
 app.use(express.static('public'));
 
+/*
 I don't have an index.html file
 app.get('/', (req, res) => {
 
